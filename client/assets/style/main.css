@@ -1,0 +1,26 @@
+/* Extra small (small to large handset) */
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 10 !important;
+  }
+}
+/* Small (small to medium tablet) */
+@media only screen and (max-width: 959px) {
+}
+/* Medium (large tablet to laptop) */
+@media only screen and (min-width: 960px) {
+  .container {
+    width: 950px !important;
+    padding: 0 !important;
+  }
+}
+/* Large (desktop) */
+@media only screen and (min-width: 1264px) {
+  .container {
+    width: 1170px !important;
+    padding: 0 !important;
+  }
+}
+/* Extra large (4k and ultra-wides) */
+@media only screen and (min-width: 1904px) {
+}
