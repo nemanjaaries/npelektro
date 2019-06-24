@@ -13,6 +13,14 @@ export default {
     return {
       //
     }
+  },
+  beforeMount() {
+    this.hideScrollBar()
+  },
+  methods: {
+    hideScrollBar() {
+      document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+    }
   }
 }
 </script>
@@ -23,7 +31,7 @@ body {
   overflow-x: hidden;
 }
 html {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .v-toolbar__content {
   padding: 0;

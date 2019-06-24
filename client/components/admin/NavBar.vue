@@ -20,14 +20,13 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title class="white--text">{{
-              $auth.user.username
+              user.username
             }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile
           v-for="(link, index) in links"
           :key="index"
-          router
           :to="link.route"
         >
           <v-list-tile-action>
@@ -63,11 +62,11 @@
 export default {
   data() {
     return {
-      drawer: false,
+      drawer: true,
       links: [
-        { icon: 'dashboard', text: 'Dashboard', route: '/admin' },
-        { icon: 'folder', text: 'Page1', route: '/admin/page1' },
-        { icon: 'person', text: 'Page2', route: '/admin/page2' }
+        { icon: 'person', text: 'Profil', route: '/admin' },
+        { icon: 'account_balance', text: 'Page1', route: '/admin/page1' },
+        { icon: 'build', text: 'Page2', route: '/admin/page2' }
       ]
     }
   },

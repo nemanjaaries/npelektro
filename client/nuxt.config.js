@@ -43,6 +43,7 @@ export default {
     { src: '~/plugins/aos', ssr: false },
     '@/plugins/globals',
     '@/plugins/mixins/validation',
+    '@/plugins/mixins/user',
     '@/plugins/axios'
   ],
   router: {
@@ -87,7 +88,7 @@ export default {
       }
     },
     redirect: {
-      login: 'auth/login',
+      login: '/',
       home: '/admin'
     }
   },

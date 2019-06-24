@@ -37,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct(JWTAuth $auth)
     {
-        // $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
         $this->auth = $auth;
     }
     /**

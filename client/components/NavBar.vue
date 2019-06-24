@@ -17,8 +17,20 @@
             @click="emitScroll(link.anchor)"
             >{{ link.title }}</v-btn
           >
-          <login-dialog />
-          <register-dialog />
+          <template v-if="!authenticated">
+            <login-dialog />
+            <register-dialog />
+          </template>
+          <template v-else>
+            <v-btn
+              nuxt-link
+              to="/admin"
+              :ripple="false"
+              flat
+              class="custom-btn font-weight-bold"
+              >admin</v-btn
+            >
+          </template>
         </v-toolbar-items>
         <v-toolbar-side-icon
           class="hidden-md-and-up"
@@ -35,9 +47,9 @@
           @click="emitScroll(link.anchor)"
         >
           <v-list-tile-content>
-            <v-list-tile-title class="text-uppercase">{{
-              link.title
-            }}</v-list-tile-title>
+            <v-list-tile-title class="text-uppercase">
+              {{ link.title }}
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

@@ -4,7 +4,7 @@
       <v-icon class="icon">photo_camera</v-icon>
     </div>
     <h5>
-      <a href="#">projektovanje isntalacije jake struje</a>
+      <a href="#">projektovanje instalacije jake struje</a>
     </h5>
     <p class="font-weight-light">
       Lorem ipsum dolor sit amet, consect et adipiscing elit, sed do eiusmod

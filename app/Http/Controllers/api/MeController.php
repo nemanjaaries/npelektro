@@ -12,13 +12,14 @@ class MeController extends Controller
     protected $auth;
 
     public function __construct(JWTAuth $auth){
+        $this->middleware('auth.role:admin,manager,user', ['except' => ['logout']]);
         $this->auth = $auth;
     }
 
     public function index(Request $request){
         return response()->json([
             'success' => true,
-            'data' => $request->user()
+            'data' => $request->user(),
         ]);
        
     }
