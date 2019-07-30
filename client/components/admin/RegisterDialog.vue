@@ -1,14 +1,12 @@
 <template>
-  <v-dialog v-model="loginDialog" max-width="400px">
+  <v-dialog v-model="dialog" max-width="400px">
     <template v-slot:activator="{ on }">
-      <v-btn class="custom-btn" :ripple="false" flat v-on="on"
-        >registruj se</v-btn
-      >
+      <v-btn class="primary" flat v-on="on">Kreiraj novog korisnika</v-btn>
     </template>
 
     <v-card class="card">
       <v-card-text class="px-4 py-2">
-        <form class="form">
+        <form class="form" @submit.prevent="register">
           <v-text-field
             v-model="username"
             :error-messages="usernameErrors"
@@ -44,14 +42,8 @@
             @blur="$v.confirmPassword.$touch()"
           ></v-text-field>
           <v-card-actions class="pa-0">
-            <v-btn
-              block
-              dark
-              flat
-              color="primary"
-              class="mt-3"
-              @click="register"
-              >registruj se</v-btn
+            <v-btn type="submit" block dark flat color="primary" class="mt-3"
+              >kreiraj</v-btn
             >
           </v-card-actions>
         </form>
@@ -80,7 +72,7 @@ export default {
   },
   data() {
     return {
-      loginDialog: false,
+      dialog: false,
 
       username: '',
       password: '',
@@ -132,8 +124,8 @@ export default {
     }
   },
   watch: {
-    loginDialog() {
-      if (this.loginDialog === false) {
+    dialog() {
+      if (this.dialog === false) {
         this.clear()
         this.$store.dispatch('validation/clearErrors')
         this.clearUsernameError()
@@ -142,7 +134,20 @@ export default {
       }
     }
   },
+  notifications: {
+    showCreateSuccess: {
+      title: 'Kreiranje uspesno',
+      message: 'Uspesno ste dodali korisnika',
+      type: 'success'
+    }
+  },
   methods: {
+    createSuccess(title, message) {
+      this.showCreateSuccess({
+        title: title,
+        message: message
+      })
+    },
     clearUsernameError() {
       this.serverErrors.username = []
     },
@@ -176,13 +181,15 @@ export default {
         console.log('Validacija je prosla')
 
         try {
-          await this.$axios.post('/auth/register', form)
+          const { data } = await this.$axios.post('/users', form)
+          console.log(data)
+          this.createSuccess(data.title, data.message)
+          this.dialog = false
         } catch (e) {
           this.serverValidation()
-          return
         }
 
-        this.$auth.login({ data: form })
+        // this.$auth.login({ data: form })
       }
 
       // this.$router.push({ path: '/admin' })
@@ -202,16 +209,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.custom-btn {
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.custom-btn::before {
-  color: transparent;
-}
-
-.custom-btn:hover {
-  color: #d73e4d;
-}
-</style>
+<style scoped></style>

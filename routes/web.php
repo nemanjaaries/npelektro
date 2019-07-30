@@ -16,6 +16,8 @@ Route::get('/', function () {
     return "API APLICATION";
 });
 
+Route::get('/verify/{verification_token}', 'api\Auth\RegisterController@verifyUser');
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

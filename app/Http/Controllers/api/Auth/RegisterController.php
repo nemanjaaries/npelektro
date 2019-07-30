@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
@@ -65,10 +67,29 @@ class RegisterController extends Controller
                 'token' => $token
             ], 200);
         }
-        return response()->json([
-            'success' => false,
-            'errors' => $validator->errors()
-        ], 422);
+        
+    }
+
+    public function verifyUser($verification_token){
+        $check = DB::table('user_verifications')->where('token',$verification_token)->first();
+        if(!is_null($check)){
+            $user = User::find($check->user_id);
+            if($user->is_verified == 1){
+                return response()->json([
+                    'success'=> true,
+                    'message'=> 'Account already verified..'
+                ]);
+            }
+            $curentTime = Carbon::now();
+            $user->update(['is_verified' => 1]);
+            $user->update(['email_verified_at' => $curentTime]);
+            DB::table('user_verifications')->where('token',$verification_token)->delete();
+            return response()->json([
+                'success'=> true,
+                'message'=> 'You have successfully verified your email address.'.$curentTime
+            ]);
+        }
+        return response()->json(['success'=> false, 'error'=> "Verification code is invalid."]);
     }
 
 

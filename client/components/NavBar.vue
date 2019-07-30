@@ -19,7 +19,6 @@
           >
           <template v-if="!authenticated">
             <login-dialog />
-            <register-dialog />
           </template>
           <template v-else>
             <v-btn
@@ -59,11 +58,9 @@
 
 <script>
 import LoginDialog from '@/components/LoginDialog.vue'
-import RegisterDialog from '@/components/RegisterDialog.vue'
 export default {
   components: {
-    LoginDialog,
-    RegisterDialog
+    LoginDialog
   },
   props: ['scrollPosition', 'sections'],
   data() {

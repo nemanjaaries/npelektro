@@ -9,7 +9,7 @@
         <p v-if="errors.message" class="server-message">
           {{ errors.message[0] }}
         </p>
-        <form class="form">
+        <form class="form" @submit.prevent="login">
           <v-text-field
             v-model="email"
             :error-messages="emailErrors"
@@ -32,7 +32,7 @@
           ></v-text-field>
 
           <v-card-actions class="pa-0">
-            <v-btn block dark flat color="primary" @click="login"
+            <v-btn type="submit" block dark flat color="primary"
               >uloguj se</v-btn
             >
           </v-card-actions>

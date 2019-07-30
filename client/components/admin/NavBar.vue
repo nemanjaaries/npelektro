@@ -13,17 +13,17 @@
       </v-btn>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" app class="primary">
+      <v-layout column align-center>
+        <v-flex class="mt-4">
+          <v-avatar size="150">
+            <img src="@/assets/images/tesla.jpg" alt="user" />
+          </v-avatar>
+          <p class="text-xs-center white--text subheding mt-2 text-capitalize">
+            {{ user.username }}
+          </p>
+        </v-flex>
+      </v-layout>
       <v-list dark>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon class="white--text">folder</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title class="white--text">{{
-              user.username
-            }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
         <v-list-tile
           v-for="(link, index) in links"
           :key="index"
@@ -41,42 +41,27 @@
       </v-list>
     </v-navigation-drawer>
   </nav>
-  <!-- <div>
-    <span>
-      <nuxt-link to="/admin">Index</nuxt-link>
-    </span>
-    <span>
-      <nuxt-link to="/admin/page1">Page1</nuxt-link>
-    </span>
-    <span>
-      <nuxt-link to="/admin/page2">Page2</nuxt-link>
-    </span>
-    <span v-if="loggedIn">
-      <span>{{ $auth.user.email }}</span>
-      <v-btn @click="logout">logout</v-btn>
-    </span>
-  </div>-->
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      drawer: true,
-      links: [
-        { icon: 'person', text: 'Profil', route: '/admin' },
-        { icon: 'account_balance', text: 'Page1', route: '/admin/page1' },
-        { icon: 'build', text: 'Page2', route: '/admin/page2' }
-      ]
+      drawer: true
     }
   },
   computed: {
+    ...mapGetters({
+      links: 'link/links'
+    }),
     loggedIn() {
       return this.$auth.loggedIn
     }
   },
   methods: {
     logout() {
+      this.$store.dispatch('link/clearLinks')
       return this.$auth.logout()
     }
   }

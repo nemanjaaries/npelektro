@@ -27,7 +27,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#19d275' },
 
   /*
    ** Global CSS
@@ -44,7 +44,8 @@ export default {
     '@/plugins/globals',
     '@/plugins/mixins/validation',
     '@/plugins/mixins/user',
-    '@/plugins/axios'
+    '@/plugins/axios',
+    { src: '@/plugins/vue-notifications', ssr: false }
   ],
   router: {
     // middleware: ['clearValidationErrors']

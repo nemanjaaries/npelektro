@@ -9,7 +9,7 @@
 <script>
 import NavBar from '@/components/admin/NavBar.vue'
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'setAdminLinks'],
   components: {
     NavBar
   },
